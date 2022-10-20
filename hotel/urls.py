@@ -18,9 +18,11 @@ urlpatterns = [
         path('setuprooms/',View.SetUprooms), 
         path('book-room/',View.BookRoom), 
         path('booked-rooms/',View.BookedRooms),
+        path('booked-rooms-report/',View.BookedRoomsReport),
         path('free-rooms/',View.Free_Rooms), 
         path('access/token', views.getAccessToken, name='get_mpesa_access_token'),
         path('online/lipa/', views.lipa_na_mpesa_online, name='lipa_na_mpesa'),
+        path('register-patient/',View.RegisterPatient),
 
 
         path('',include(router.urls)), 

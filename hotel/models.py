@@ -36,6 +36,8 @@ class RoomsBooking(models.Model):
     email=  models.CharField(max_length=200, blank=True, null=True)
     phone= models.CharField(max_length=200, blank=True, null=True)
     gender=  models.CharField(max_length=200, blank=True, null=True)
+    booking_date= models.DateField(blank=True, null=True)
+    time = models.TimeField(auto_now_add=True,null=True,blank=True)
     age= models.CharField(max_length=200, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     # def __str__(self):
