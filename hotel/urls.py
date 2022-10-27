@@ -24,6 +24,7 @@ urlpatterns = [
         path('online/lipa/', views.lipa_na_mpesa_online, name='lipa_na_mpesa'),
         path('register-patient/',View.RegisterPatient),
 
+        path('edit-rooms/',View.Edit_rooms),
 
         path('',include(router.urls)), 
        

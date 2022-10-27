@@ -206,3 +206,17 @@ def lipa_na_mpesa_online(request):
     response = requests.post(api_url, json=request, headers=headers)
     
     return Response('success')
+@api_view(['POST'])
+@permission_classes((AllowAny,))
+
+@parser_classes((JSONParser,FormParser, ))
+def Edit_rooms(request):
+    data = request.data
+    print(data)
+    room_created=Rooms.objects.get(id=data['id'])
+    room_created.room_block=data['room_block']
+    room_created.room_number=data['room_number']
+    room_created.room_price=data['room_price']
+    room_created.room_package=data['room_package']
+    room_created.save()
+    return Response("ok")
