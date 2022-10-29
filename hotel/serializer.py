@@ -12,6 +12,7 @@ class RoomSerializers(ModelSerializer):
     class Meta:
         model=Rooms
         fields='__all__' 
+   
 class RoomBookingSerializer(ModelSerializer):
     room=RoomSerializers()
 

@@ -34,7 +34,7 @@ class RoomsSetup(ModelViewSet):
             room_number = data['room_number'],
             room_package= data['room_package'],
             room_price = data['room_price'],            
-            boarding_package = data['boarding_package']                    
+            # boarding_package = data['boarding_package']                    
            
         ) 
         return Response("OK")
@@ -44,6 +44,8 @@ class RoomsSetup(ModelViewSet):
 @parser_classes((JSONParser,FormParser, ))
 def Hotel_Setup(request):
     data = request.data
+    user=request.user
+    print(user)
     print(data)
 
     newrooms=Rooms.objects.create(
@@ -52,7 +54,7 @@ def Hotel_Setup(request):
             room_number = data['room_number'],
             room_package= data['room_package'],
             room_price = data['room_price'],            
-            boarding_package = data['boarding_package']                    
+            # boarding_package = data['boarding_package']                    
            
         )
     return Response('ok')
@@ -100,7 +102,7 @@ def BookRoom(request):
 def BookedRooms(request):
     data = request.data
     print(data)
-    queryset=RoomsBooking.objects.filter(status="BOOKED")
+    queryset=RoomsBooking.objects.filter(status="BOOKED").order_by("-created")
     serializer=RoomBookingSerializer(queryset,many=True).data
 
     return Response (serializer)
@@ -111,7 +113,7 @@ def BookedRooms(request):
 def BookedRoomsReport(request):
     data = request.data
     print(data)
-    queryset=RoomsBooking.objects.all()
+    queryset=RoomsBooking.objects.all().order_by("-created")
     serializer=RoomBookingSerializer(queryset,many=True).data
 
     return Response (serializer)
@@ -193,12 +195,12 @@ def lipa_na_mpesa_online(request):
         "Password": LipanaMpesaPpassword.decode_password,
         "Timestamp": LipanaMpesaPpassword.lipa_time,
         "TransactionType": "CustomerPayBillOnline",
-        "Amount":1,
+        "Amount":amount,
         "PartyA": phone,  # replace with your phone number to get stk push
         "PartyB": LipanaMpesaPpassword.Business_short_code,
         "PhoneNumber": phone,  # replace with your phone number to get stk push
         "CallBackURL": "https://sandbox.safaricom.co.ke/mpesa/",
-        "AccountReference": "samuel",
+        "AccountReference": "sameta hotel Lodge",
         "TransactionDesc": "hotel payments"
     }
     print(request)
@@ -220,3 +222,26 @@ def Edit_rooms(request):
     room_created.room_package=data['room_package']
     room_created.save()
     return Response("ok")
+@api_view(['POST'])
+@permission_classes((AllowAny,))
+@parser_classes((JSONParser,FormParser, ))
+def DeleteRoom(request):
+    data = request.data
+    print(data)
+    deletion=Rooms.objects.get(id=data['id'])
+    deletion.delete()
+    print(deletion)
+    return Response("ok")
+class ChangePasswordAPIView(APIView):
+    parser_classes=(JSONParser,FormParser,MultiPartParser)
+    permission_classes=[AllowAny]
+    def post(self,request):
+        data = request.data
+        user=request.user
+        if not user.check_password(data['current']):
+            return Response("Wrong password",status=HTTP_400_BAD_REQUEST)
+        if  data['password1']==data['password2']:
+            user.set_password(data['password1'])
+            user.save()
+            return Response(status=HTTP_200_OK)
+        return Response("Passwords does not match",status=HTTP_400_BAD_REQUEST)

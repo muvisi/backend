@@ -25,6 +25,8 @@ urlpatterns = [
         path('register-patient/',View.RegisterPatient),
 
         path('edit-rooms/',View.Edit_rooms),
+        path('delete-room/',View.DeleteRoom),
+        path('change_password/',ChangePasswordAPIView.as_view()),
 
         path('',include(router.urls)), 
        
