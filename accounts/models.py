@@ -47,7 +47,7 @@ class AccountModel(AbstractBaseUser,PermissionsMixin):
     role = models.CharField(choices=ROLE_CHOICES,max_length=50,blank=True,null=True)
     password= models.CharField(max_length=128, verbose_name='password')
     date_joined = models.DateTimeField(auto_now_add=True)
-    avatar=models.ImageField(upload_to='res/profiles/',null=True,blank=True)
+    # avatar=models.ImageField(upload_to='res/profiles/',null=True,blank=True)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=True)
