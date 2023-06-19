@@ -78,12 +78,12 @@ def SetUprooms(request):
 def BookRoom(request):
     data = request.data
     print(data)
-    date=((parse(data['date']))+timedelta(days=1)).date()
+    # date=((parse(data['date']))+timedelta(days=1)).date()
     book_room=Rooms.objects.get(id=data['id'])
     created=RoomsBooking.objects.create(
                     room=book_room,
-                    booking_date=date,
-                    time=parse(data['time']),
+                    # booking_date=date,
+                    # time=parse(data['time']),
                      names=data['Patient_names'],
                      email=data['Patient_email'],
                      phone=data['Patient_phone'],

@@ -15,19 +15,17 @@ from .managers import UserManager
 
 __all__ = ['account']
 class AccountModel(AbstractBaseUser,PermissionsMixin):
-    HOTEL_ADMIN= 'hotel_admin'
-    HOTEL_GUEST = 'hotel_guest'
-    SUPER_ADMIN='super_admin'
-    HOTEL_RECEPTIONIST="hotel_receptionist"
-    HOTEL_CASHIER="hotel_cashier"
+    ADMIN= "admin"
+    CASHIER="cashier"
+    NURSE="nurse"
+    CLIENT="client"
  
     
     ROLE_CHOICES = (
-        (HOTEL_ADMIN, 'hotel_admin'),
-        (HOTEL_GUEST, 'hotel_guest'),
-        (SUPER_ADMIN, 'super_admin'),
-        (HOTEL_RECEPTIONIST, 'hotel_receptionist'),
-        (HOTEL_CASHIER, 'hotel_cashier'),
+        (ADMIN, 'admin'),
+        (CASHIER, 'cashier'),
+        (NURSE, 'nurse'),
+        (CLIENT, 'client'),
        
     )
     """
